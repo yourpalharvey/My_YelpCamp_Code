@@ -38,19 +38,23 @@ const validateCampground = (req, res, next) => {
     }
 }
 
+// Home Page
 app.get('/', (req, res) => {
     res.render('home')
 });
 
+// Campground Index (list of all campgrounds)
 app.get('/campgrounds', catchAsync(async (req, res) => {
     const campgrounds = await Campground.find({});
     res.render('campgrounds/index', { campgrounds })
 }));
 
+// Render add new campground form
 app.get('/campgrounds/new', (req, res) => {
     res.render('campgrounds/new');
 })
 
+// Add the new campground details to the db
 app.post('/campgrounds', validateCampground, catchAsync(async (req, res, next) => {
     // if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
     const campground = new Campground(req.body.campground);
@@ -58,22 +62,26 @@ app.post('/campgrounds', validateCampground, catchAsync(async (req, res, next) =
     res.redirect(`/campgrounds/${campground._id}`);
 }));
 
+// Gets the campground show page
 app.get('/campgrounds/:id', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render('campgrounds/show', { campground });
 }));
 
+// Gets the edit existing campground form 
 app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render('campgrounds/edit', { campground });
 }));
 
+// Updates the campground details with the new info from the edit form
 app.put('/campgrounds/:id', validateCampground, catchAsync(async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
     res.redirect(`/campgrounds/${campground._id}`);
 }));
 
+// Deletes the campground selected from the db
 app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
