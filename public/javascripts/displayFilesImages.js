@@ -6,7 +6,7 @@ function previewMultiple(event) {
         var img = document.createElement("img");
         img.setAttribute("src", urls);
         img.setAttribute('id', 'formFile'); //for css
-        img.setAttribute('class', 'col-6 col-lg-4 col-xl-3');
+        img.setAttribute('class', 'col-6 col-lg-4 col-xl-3 img-thumbnail');
         document.getElementById('imageBox').appendChild(img);
     }
 }
