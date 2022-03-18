@@ -21,6 +21,14 @@ const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewsRoutes = require('./routes/reviews');
 
+// DEPLOYMENT DB
+// const dbUrl = process.env.DB_URL;
+// mongoose.connect(dbUrl, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// });
+
+// DEVELOPMENT DB
 mongoose.connect('mongodb://localhost:27017/my-yelp-camp', {
     useNewUrlParser: true,
     useUnifiedTopology: true
